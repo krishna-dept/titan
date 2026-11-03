@@ -1,0 +1,215 @@
+/*
+ * cards-icon-inline: benefit items (icon + title + one line).
+ * Values from titan.co.in .signup-benefits-container (migration-work/cards-icon-inline-extracted.css).
+ * The section holding this block is styled as the cream "Signup & Unlock" panel so the default-content
+ * heading and SIGN UP button sit together with the items (approved exception for this block).
+ */
+
+/* ---------- panel (section) ---------- */
+main > .section.cards-icon-inline-container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: min(100% - 2 * var(--gutter), var(--content-max-width) - 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #fffbf0;
+}
+
+main > .section.cards-icon-inline-container > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* heading: small, capitalized (overrides the global uppercase section heading inside this panel only) */
+main > .section.cards-icon-inline-container > .default-content-wrapper :is(h2, h3, h4) {
+  margin: 0 0 5px;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: normal;
+  text-transform: capitalize;
+}
+
+/* authored emphasis in the heading renders in Titan gold ("Exclusive Benefits") */
+main > .section.cards-icon-inline-container > .default-content-wrapper :is(h2, h3, h4) :is(em, strong) {
+  color: var(--accent-color);
+  font-style: normal;
+  font-weight: inherit;
+}
+
+main > .section.cards-icon-inline-container > .default-content-wrapper > .button-wrapper {
+  margin: 0;
+}
+
+main > .section.cards-icon-inline-container > .cards-icon-inline-wrapper + .default-content-wrapper {
+  margin-top: 12px;
+}
+
+/* SIGN UP button */
+main > .section.cards-icon-inline-container a.button:any-link {
+  width: 100%;
+  min-height: 40px;
+  border-width: 3px;
+  border-radius: var(--radius-s);
+  padding: 4px 16px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: normal;
+}
+
+/* ---------- items ---------- */
+.cards-icon-inline > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-icon-inline .cards-icon-inline-card,
+.cards-icon-inline .cards-icon-inline-card-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #000;
+  text-decoration: none;
+}
+
+.cards-icon-inline .cards-icon-inline-card-link {
+  border-radius: var(--radius-m);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.cards-icon-inline .cards-icon-inline-card-link:hover {
+  color: #000;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.cards-icon-inline .cards-icon-inline-card-media {
+  flex: 0 0 auto;
+  width: 52px;
+  line-height: 0;
+}
+
+.cards-icon-inline .cards-icon-inline-card-media > p {
+  margin: 0;
+}
+
+/* colored circle backgrounds are part of the icon artwork (152px PNGs) */
+.cards-icon-inline .cards-icon-inline-card-media img,
+.cards-icon-inline .cards-icon-inline-card-media .icon {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.cards-icon-inline .cards-icon-inline-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.cards-icon-inline .cards-icon-inline-card-body > * {
+  margin: 0;
+  color: #000;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+}
+
+/* title line */
+.cards-icon-inline .cards-icon-inline-card-body > :first-child,
+.cards-icon-inline .cards-icon-inline-card-body strong {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.cards-icon-inline a:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-icon-inline .cards-icon-inline-card-link {
+    transition: none;
+  }
+}
+
+@media (width >= 600px) {
+  .cards-icon-inline > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+  }
+
+  .cards-icon-inline .cards-icon-inline-card,
+  .cards-icon-inline .cards-icon-inline-card-link {
+    flex: 0 1 auto;
+  }
+
+  main > .section.cards-icon-inline-container a.button:any-link {
+    width: auto;
+    min-width: 214px;
+  }
+}
+
+@media (width >= 900px) {
+  main > .section.cards-icon-inline-container {
+    padding: 19px 22px;
+  }
+
+  main > .section.cards-icon-inline-container > .default-content-wrapper :is(h2, h3, h4) {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  main > .section.cards-icon-inline-container > .cards-icon-inline-wrapper + .default-content-wrapper {
+    margin-top: 16px;
+  }
+
+  main > .section.cards-icon-inline-container a.button:any-link {
+    min-height: 48px;
+    padding: 6px 16px;
+  }
+
+  .cards-icon-inline > ul {
+    gap: 16px 52px;
+  }
+
+  .cards-icon-inline .cards-icon-inline-card-media {
+    width: 76px;
+  }
+}
+
+/* wide: items in one row with the button on the right */
+@media (width >= 1200px) {
+  main > .section.cards-icon-inline-container {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 16px;
+    align-items: center;
+  }
+
+  main > .section.cards-icon-inline-container > .default-content-wrapper:first-child {
+    grid-column: 1 / -1;
+  }
+
+  main > .section.cards-icon-inline-container > .cards-icon-inline-wrapper + .default-content-wrapper {
+    margin-top: 0;
+  }
+
+  .cards-icon-inline > ul {
+    flex-wrap: nowrap;
+  }
+}

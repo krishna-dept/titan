@@ -1,0 +1,20 @@
+{
+  "variantName": "carousel-hero",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Homepage hero slider of full-width linked promotional slides",
+    "summary": "Full-width single-slide hero slider with text-label indicator strip below and side arrows",
+    "layout": "One slide per view, full bleed; prev/next arrows at the sides; a strip of text labels below the slides acts as the slide indicator; autoplays (6s) with a pause button, paused on hover/focus and when reduced motion is requested"
+  },
+  "contentPattern": {
+    "structure": "cell 1: slide image (optional second image in the same cell = mobile image); cell 2 (optional): a short label and/or a link (the label is shown in the indicator strip and the whole slide links), or a heading, description and CTA links which are shown as an overlay",
+    "source": "7 full-width linked promo slides (Your way is beautiful, Titan Automatics, Diver's, Smart, Bestsellers, New Arrivals, Clocks), each image + label + link"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Top-of-page promotional hero with several campaigns. Keep labels short (1-3 words) as they form the indicator strip.",
+  "reuseGuidance": "Use for full-width rotating campaign heroes. For container-width image-only promos with dots use carousel-banner; for a single static hero use hero.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Shares the carousel engine in /scripts/carousel.js (prev/next, indicators, keyboard arrows, ARIA, autoplay with pause control) and helpers in /scripts/block-utils.js."
+}

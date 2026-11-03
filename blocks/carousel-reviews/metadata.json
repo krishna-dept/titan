@@ -1,0 +1,20 @@
+{
+  "variantName": "carousel-reviews",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Customer review / testimonial slider",
+    "summary": "2-up slider of text review cards (quote mark, rating, name, date, review) with dots and arrows",
+    "layout": "Text review cards, 1 per view on mobile and 2 on desktop; quote mark and rating at the top, reviewer name and date, then the review text; dots and arrows"
+  },
+  "contentPattern": {
+    "structure": "one row per review; lines may be in any cells/order and are recognised by content: rating (\"4.5\", \"4.5/5\" or stars), date (e.g. \"20 Nov, 2025\"), reviewer name (bold or heading line, or a short first line), optional avatar image, and the review text",
+    "source": "6 review cards: rating, reviewer name, date, quotation text"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Testimonials sections. Put the reviewer name in bold so it is never mistaken for review text.",
+  "reuseGuidance": "Use for several short text reviews. A single pull quote is default content (blockquote).",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Shares the carousel engine in /scripts/carousel.js (prev/next, indicators, keyboard arrows, ARIA, autoplay with pause control) and helpers in /scripts/block-utils.js."
+}

@@ -1,0 +1,20 @@
+{
+  "variantName": "carousel-tiles",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Horizontal slider of linked image tiles (price ranges, new arrivals, styles)",
+    "summary": "Multi-item slider showing several rectangular/portrait linked image tiles per view, side arrows",
+    "layout": "Several tiles per view (about 2 on mobile, 3 on tablet, 4-5 on desktop), side arrows, swipe/scroll; images keep their natural aspect ratio; few tiles are centered without arrows"
+  },
+  "contentPattern": {
+    "structure": "cell 1: tile image; cell 2 (optional): label and/or link. One link makes the whole tile clickable",
+    "source": "6 linked price-range image tiles (Under 2K ... 25K+) in a scrolling slider | ~10 linked portrait campaign images (Raga Paris, Roamer, Edge Fumage, Zero Hour Divers, ...) | 5 linked style images (Minimal & Chic, Bold & Edgy, Luxe & Classy, Together/Bandhan, Casual & Sporty)"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Product/collection entry points that need more items than fit in one row.",
+  "reuseGuidance": "Use when tiles should scroll. If all tiles should be visible in a grid use cards-image-tiles.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Shares the carousel engine in /scripts/carousel.js (prev/next, indicators, keyboard arrows, ARIA, autoplay with pause control) and helpers in /scripts/block-utils.js."
+}

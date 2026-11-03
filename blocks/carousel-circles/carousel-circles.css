@@ -1,0 +1,251 @@
+/* carousel-circles: multi-item slider of circular images with a label below.
+ * Values from titan.co.in .tw-category-carousel (tile width, circle diameter, label type).
+ * Spacing between tiles is slide padding (not flex gap) so the carousel engine's
+ * per-page count (track width / slide width) matches what is actually visible. */
+.carousel-circles {
+  /* mobile (source .mobile-view-active): 81px tile, 16px side padding, 57px circle */
+  --carousel-circles-tile: 81px;
+  --carousel-circles-pad: 16px;
+  --carousel-circles-circle: 57px;
+  --carousel-circles-label-size: 12px;
+  --carousel-circles-label-height: 18px;
+  --carousel-circles-label-gap: 7px;
+  --carousel-circles-ring-room: 6px;
+  --carousel-circles-arrow: 40px;
+
+  position: relative;
+}
+
+.carousel-circles .carousel-circles-viewport {
+  position: relative;
+}
+
+.carousel-circles .carousel-circles-slides {
+  display: flex;
+
+  /* bleed by the slide padding so the first circle lines up with the content edge;
+     on mobile this reaches the screen edge and lets the next items peek in */
+  margin: 0 calc(-1 * var(--carousel-circles-pad));
+  padding: var(--carousel-circles-ring-room) 0;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.carousel-circles .carousel-circles-slides::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-circles .carousel-circles-slide {
+  flex: 0 0 auto;
+  box-sizing: content-box;
+  width: var(--carousel-circles-tile);
+  min-width: 0;
+  padding: 0 var(--carousel-circles-pad);
+  scroll-snap-align: start;
+}
+
+.carousel-circles.carousel-circles-static .carousel-circles-slides {
+  justify-content: center;
+}
+
+.carousel-circles .carousel-circles-item,
+.carousel-circles .carousel-circles-item-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--carousel-circles-label-gap);
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+}
+
+.carousel-circles .carousel-circles-item-link {
+  width: 100%;
+  outline: none;
+}
+
+.carousel-circles .carousel-circles-item-media {
+  width: var(--carousel-circles-circle);
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
+  transition: box-shadow 0.25s ease;
+}
+
+.carousel-circles .carousel-circles-item-media picture,
+.carousel-circles .carousel-circles-item-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-circles .carousel-circles-item-media img {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.carousel-circles .carousel-circles-item-label {
+  max-width: 100%;
+  font-size: var(--carousel-circles-label-size);
+  font-weight: 400;
+  line-height: var(--carousel-circles-label-height);
+  white-space: nowrap;
+}
+
+.carousel-circles .carousel-circles-item-label > * {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* hover / keyboard focus: gold ring around the circle, gentle zoom inside it */
+.carousel-circles .carousel-circles-item-link:hover .carousel-circles-item-media {
+  box-shadow: 0 0 0 3px var(--background-color), 0 0 0 5px var(--accent-color);
+}
+
+.carousel-circles .carousel-circles-item-link:focus-visible .carousel-circles-item-media {
+  box-shadow: 0 0 0 2px var(--background-color), 0 0 0 5px var(--accent-color);
+}
+
+.carousel-circles .carousel-circles-item-link:hover img,
+.carousel-circles .carousel-circles-item-link:focus-visible img {
+  transform: scale(1.06);
+}
+
+.carousel-circles .carousel-circles-item-link:focus-visible .carousel-circles-item-label {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
+  text-underline-offset: 3px;
+}
+
+/* arrows: hidden on small screens (swipe), white 50px discs on desktop */
+.carousel-circles .carousel-circles-controls {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.carousel-circles .carousel-circles-controls[hidden] {
+  display: none;
+}
+
+.carousel-circles .carousel-circles-prev,
+.carousel-circles .carousel-circles-next {
+  position: absolute;
+  top: calc(var(--carousel-circles-ring-room) + var(--carousel-circles-circle) / 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--carousel-circles-arrow);
+  height: var(--carousel-circles-arrow);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--background-color);
+  box-shadow: var(--shadow-card);
+  color: #000;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.carousel-circles .carousel-circles-prev {
+  left: 0;
+}
+
+.carousel-circles .carousel-circles-next {
+  right: 0;
+}
+
+.carousel-circles .carousel-circles-prev:hover,
+.carousel-circles .carousel-circles-next:hover {
+  color: var(--accent-color);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 16%);
+}
+
+.carousel-circles .carousel-circles-prev:disabled,
+.carousel-circles .carousel-circles-next:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-circles .carousel-circles-prev::after,
+.carousel-circles .carousel-circles-next::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-left: 0;
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.carousel-circles .carousel-circles-next::after {
+  transform: translateX(-2px) rotate(45deg);
+}
+
+.carousel-circles .carousel-circles-prev:focus-visible,
+.carousel-circles .carousel-circles-next:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+@media (width >= 600px) {
+  .carousel-circles {
+    --carousel-circles-tile: 136px;
+    --carousel-circles-pad: 8px;
+    --carousel-circles-circle: 96px;
+    --carousel-circles-label-size: 16px;
+    --carousel-circles-label-height: 24px;
+    --carousel-circles-label-gap: 12px;
+  }
+
+  .carousel-circles .carousel-circles-controls {
+    display: block;
+  }
+}
+
+@media (width >= 900px) {
+  /* desktop (source .desktop-view-active): 194px tile, 8px side padding, 138px circle */
+  .carousel-circles {
+    --carousel-circles-tile: 194px;
+    --carousel-circles-circle: 138px;
+    --carousel-circles-label-size: 20px;
+    --carousel-circles-label-height: 30px;
+    --carousel-circles-label-gap: 17px;
+    --carousel-circles-arrow: 50px;
+  }
+
+  .carousel-circles .carousel-circles-prev::after,
+  .carousel-circles .carousel-circles-next::after {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-circles .carousel-circles-slides {
+    scroll-behavior: auto;
+  }
+
+  .carousel-circles .carousel-circles-item-media,
+  .carousel-circles .carousel-circles-item-media img,
+  .carousel-circles .carousel-circles-prev,
+  .carousel-circles .carousel-circles-next {
+    transition: none;
+  }
+
+  .carousel-circles .carousel-circles-item-link:hover img,
+  .carousel-circles .carousel-circles-item-link:focus-visible img {
+    transform: none;
+  }
+}

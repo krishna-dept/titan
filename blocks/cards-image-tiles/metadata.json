@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-image-tiles",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Grid of linked image tiles (him/her, collections, brands)",
+    "summary": "Image-only linked tiles in an even grid (2 or 4 columns)",
+    "layout": "Even grid; columns follow the tile count (2 tiles = 2 columns, 3/6/9 = 3 columns, otherwise 4); 2 columns on mobile; images keep their natural aspect ratio"
+  },
+  "contentPattern": {
+    "structure": "cell 1: tile image; cell 2 (optional): label and/or link. One link makes the whole tile clickable",
+    "source": "2 linked image tiles (Watches for him, Watches for her) | 8 linked collection image tiles (Raga Glimmers, Edge Fumage, Raga Memoirs, Stellar, Cocktails, Automatic, Raga Silvers, Titan Women) | 12 linked brand image tiles (Titan, Fastrack, Sonata, Tommy Hilfiger, Kenneth Cole, Police, Ducati, Zoop, Raga, Xylys, Edge, Nebula)"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Collection, brand or audience entry points where every tile should be visible.",
+  "reuseGuidance": "Use for static grids. If tiles should scroll horizontally use carousel-tiles; for a featured large tile use cards-bento.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Uses image/link helpers from /scripts/block-utils.js."
+}

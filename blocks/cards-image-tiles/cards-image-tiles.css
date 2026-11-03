@@ -1,0 +1,184 @@
+/* cards-image-tiles: linked image tiles in an even grid; JS sets -cols-N from the tile count.
+   Source (titan.co.in) measurements:
+   - 2 tiles (Watches for him / her, .tw-1x2-grid): 1.9:1 images; stacked full-bleed below
+     the desktop breakpoint, side by side with a 16px gap inside 30px side padding above it.
+   - 4-column grids (Collection, Shop By Brands): 4:5 images; 2 per row with a 10px gap on
+     mobile, 4 per row with 16px columns on desktop (rows: 6px Collection, 30px Brands).
+   - more than 8 tiles (Shop By Brands): a 225px-wide horizontal scroller below desktop. */
+.cards-image-tiles {
+  --cards-image-tiles-ratio: 4 / 5;
+  --cards-image-tiles-radius: var(--radius-s);
+}
+
+.cards-image-tiles > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-image-tiles .cards-image-tiles-card,
+.cards-image-tiles .cards-image-tiles-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards-image-tiles .cards-image-tiles-card-link {
+  position: relative;
+  border-radius: var(--cards-image-tiles-radius);
+  outline: none;
+}
+
+.cards-image-tiles .cards-image-tiles-card-media {
+  overflow: hidden;
+  border-radius: var(--cards-image-tiles-radius);
+  background-color: var(--light-color);
+  line-height: 0;
+}
+
+.cards-image-tiles .cards-image-tiles-card-media > p {
+  margin: 0;
+}
+
+/* a fixed ratio reserves the tile's space before the lazy image loads */
+.cards-image-tiles .cards-image-tiles-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--cards-image-tiles-ratio);
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.cards-image-tiles .cards-image-tiles-card-body {
+  text-align: center;
+}
+
+.cards-image-tiles .cards-image-tiles-card-body > * {
+  margin: 0;
+}
+
+/* focus ring drawn above the image so overflow/scroll containers never clip it */
+.cards-image-tiles .cards-image-tiles-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cards-image-tiles .cards-image-tiles-card-link:focus-visible::after {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 4px var(--background-color);
+}
+
+@media (hover: hover) {
+  .cards-image-tiles .cards-image-tiles-card-link:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* a single tile spans the full width */
+.cards-image-tiles.cards-image-tiles-cols-1 > ul {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* two tiles (Watches for him / her): wide lifestyle images, stacked edge to edge */
+.cards-image-tiles.cards-image-tiles-cols-1,
+.cards-image-tiles.cards-image-tiles-cols-2 {
+  --cards-image-tiles-ratio: 1.9 / 1;
+}
+
+.cards-image-tiles.cards-image-tiles-cols-2 {
+  --cards-image-tiles-radius: 0;
+
+  margin-inline: calc(-1 * var(--gutter));
+}
+
+.cards-image-tiles.cards-image-tiles-cols-2 > ul {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* long lists (Shop By Brands) scroll sideways instead of stacking many rows */
+.cards-image-tiles.cards-image-tiles-cols-4:has(> ul > li:nth-child(9)) {
+  margin-inline-end: calc(-1 * var(--gutter));
+}
+
+.cards-image-tiles.cards-image-tiles-cols-4 > ul:has(> li:nth-child(9)) {
+  grid-auto-columns: 225px;
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  overflow-x: auto;
+  padding: 0 var(--gutter) 16px 0;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark-color) var(--border-color);
+}
+
+.cards-image-tiles.cards-image-tiles-cols-4 > ul:has(> li:nth-child(9)) > li {
+  scroll-snap-align: start;
+}
+
+@media (width >= 600px) {
+  .cards-image-tiles.cards-image-tiles-cols-3 > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cards-image-tiles.cards-image-tiles-cols-4 > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 900px) {
+  .cards-image-tiles > ul {
+    gap: 16px;
+  }
+
+  .cards-image-tiles.cards-image-tiles-cols-2 {
+    --cards-image-tiles-radius: var(--radius-s);
+
+    /* source keeps 30px side padding here, 2px less than the section gutter */
+    margin-inline: -2px;
+  }
+
+  .cards-image-tiles.cards-image-tiles-cols-2 > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards-image-tiles.cards-image-tiles-cols-4 > ul {
+    row-gap: 6px;
+  }
+
+  .cards-image-tiles.cards-image-tiles-cols-4:has(> ul > li:nth-child(9)) {
+    margin-inline-end: 0;
+  }
+
+  .cards-image-tiles.cards-image-tiles-cols-4 > ul:has(> li:nth-child(9)) {
+    grid-auto-columns: auto;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: 30px;
+    overflow-x: visible;
+    padding: 0;
+    scroll-snap-type: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-image-tiles .cards-image-tiles-card-media img {
+    transition: none;
+  }
+
+  .cards-image-tiles .cards-image-tiles-card-link:hover img {
+    transform: none;
+  }
+}

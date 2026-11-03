@@ -1,0 +1,104 @@
+/* cards-icon-stack: trust badges, icon centered above an uppercase label, three across */
+.cards-icon-stack {
+  max-width: 860px;
+  margin-inline: auto;
+  padding: 10px 0 20px;
+  text-align: center;
+}
+
+/* in a padded section style the source strip is tighter than the section padding:
+   pull the block back so the visible spacing is the source's (10/20 mobile, 33/30 desktop) */
+main .section:is(.light, .light-grey, .highlight, .cream) .cards-icon-stack {
+  margin-block: calc(0px - var(--section-padding));
+}
+
+.cards-icon-stack > ul {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-icon-stack .cards-icon-stack-card {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.cards-icon-stack .cards-icon-stack-card,
+.cards-icon-stack .cards-icon-stack-card-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--heading-color);
+  text-align: center;
+  text-decoration: none;
+}
+
+.cards-icon-stack .cards-icon-stack-card-media {
+  width: 55px;
+  height: 55px;
+  line-height: 0;
+}
+
+.cards-icon-stack .cards-icon-stack-card-media > p {
+  margin: 0;
+}
+
+.cards-icon-stack .cards-icon-stack-card-media img,
+.cards-icon-stack .cards-icon-stack-card-media .icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cards-icon-stack .cards-icon-stack-card-body {
+  color: var(--heading-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.cards-icon-stack .cards-icon-stack-card-body > * {
+  margin: 0;
+}
+
+.cards-icon-stack .cards-icon-stack-card-link {
+  border-radius: var(--radius-s);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.cards-icon-stack .cards-icon-stack-card-link:hover {
+  opacity: 0.75;
+}
+
+.cards-icon-stack a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-icon-stack .cards-icon-stack-card-link {
+    transition: none;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-icon-stack {
+    padding: 33px 0 30px;
+  }
+
+  .cards-icon-stack .cards-icon-stack-card-media {
+    width: 75px;
+    height: 75px;
+  }
+
+  .cards-icon-stack .cards-icon-stack-card-body {
+    font-size: 18px;
+    line-height: 27px;
+  }
+}

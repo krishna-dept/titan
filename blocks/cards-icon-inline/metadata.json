@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-icon-inline",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Row of benefit items with a small icon beside a title and one line of text",
+    "summary": "Small icon left of title + one line, laid out in one row",
+    "layout": "Icon left of the text; 2 columns on mobile, all items in one row from 900px"
+  },
+  "contentPattern": {
+    "structure": "cell 1: icon or small image; cell 2: title (bold or heading) and a short line; an optional link makes the whole item clickable",
+    "source": "4 look-alike benefit items: icon + title + short line (10% OFF, Earn Neu Coins, No Cost EMI, Snapmint)"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Sign-up benefits, USPs and feature lists with small icons.",
+  "reuseGuidance": "Use for icon + text side by side. For an icon stacked above a label use cards-icon-stack.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Uses image/link helpers from /scripts/block-utils.js."
+}

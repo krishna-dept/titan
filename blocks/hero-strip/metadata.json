@@ -1,0 +1,20 @@
+{
+  "variantName": "hero-strip",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Short full-width promotional strip with text and a CTA over a background image",
+    "summary": "Short full-width background-image strip with centered inline text and CTA button",
+    "layout": "Low-height full-bleed strip; background image covers the strip; text and CTA button are centered on one line from 600px and stacked on mobile"
+  },
+  "contentPattern": {
+    "structure": "a background image (own row/cell or with the text; optional second image = mobile background), a short line of text and a CTA link (rendered as a button)",
+    "source": "Background image + short text + Login Now CTA"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Login/loyalty prompts and short promotional messages between sections.",
+  "reuseGuidance": "Use for one-line messages. For a tall hero with a headline use hero; for rotating heroes use carousel-hero.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Uses image/link helpers from /scripts/block-utils.js."
+}

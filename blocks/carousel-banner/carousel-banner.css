@@ -1,0 +1,307 @@
+/* carousel-banner: container-width, image-only promo slider with dot indicators.
+   Source: Titan .promo-banner-carousel — 1144px max width, ~6.73:1 banners, pill dots. */
+.carousel-banner {
+  position: relative;
+  max-width: 1144px;
+  margin-inline: auto;
+}
+
+.carousel-banner .carousel-banner-viewport {
+  position: relative;
+}
+
+.carousel-banner .carousel-banner-slides,
+.carousel-banner .carousel-banner-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-banner .carousel-banner-slides {
+  display: flex;
+  overflow-x: auto;
+  border-radius: var(--radius-s);
+  background-color: var(--light-color);
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.carousel-banner .carousel-banner-slides::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-banner .carousel-banner-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.carousel-banner .carousel-banner-slide-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.carousel-banner .carousel-banner-slide-link:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -3px;
+}
+
+.carousel-banner .carousel-banner-slide-media {
+  line-height: 0;
+}
+
+/* every source banner (desktop 4096x609 / 4576x680, mobile 1440x212) is ~6.73:1, so a
+   desktop-only slide keeps the same height as its neighbours on narrow screens */
+.carousel-banner .carousel-banner-slide-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4096 / 609;
+  object-fit: cover;
+}
+
+.carousel-banner .carousel-banner-desktop {
+  display: none;
+}
+
+.carousel-banner .carousel-banner-mobile {
+  display: block;
+}
+
+.carousel-banner .carousel-banner-slide-caption {
+  padding: 8px 0;
+}
+
+.carousel-banner .carousel-banner-slide-caption > * {
+  margin: 0;
+}
+
+/* controls layer over the banner */
+.carousel-banner .carousel-banner-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.carousel-banner .carousel-banner-controls[hidden],
+.carousel-banner .carousel-banner-indicators-nav[hidden] {
+  display: none;
+}
+
+.carousel-banner .carousel-banner-prev,
+.carousel-banner .carousel-banner-next,
+.carousel-banner .carousel-banner-toggle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--button-color);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* prev / next: hidden on phones (the banner is only ~55px tall); swipe, dots and arrow keys remain */
+.carousel-banner .carousel-banner-prev,
+.carousel-banner .carousel-banner-next {
+  display: none;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgb(255 255 255 / 85%);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+  transform: translateY(-50%);
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.carousel-banner .carousel-banner-prev {
+  left: 12px;
+}
+
+.carousel-banner .carousel-banner-next {
+  right: 12px;
+}
+
+.carousel-banner .carousel-banner-prev:hover,
+.carousel-banner .carousel-banner-next:hover {
+  background-color: rgb(255 255 255);
+}
+
+.carousel-banner .carousel-banner-prev::after,
+.carousel-banner .carousel-banner-next::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-left: 0;
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.carousel-banner .carousel-banner-next::after {
+  transform: translateX(-2px) rotate(45deg);
+}
+
+/* play / pause sits below the banner, at the end of the dot row */
+.carousel-banner .carousel-banner-toggle {
+  top: calc(100% + 17px);
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.carousel-banner .carousel-banner-toggle:hover {
+  opacity: 1;
+}
+
+.carousel-banner .carousel-banner-toggle::after {
+  content: '';
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent currentcolor;
+  transform: translateX(1px);
+}
+
+.carousel-banner .carousel-banner-toggle.is-playing::after {
+  width: 2px;
+  height: 10px;
+  border-width: 0 2px;
+  border-color: currentcolor;
+  transform: none;
+}
+
+.carousel-banner button:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* dots: 8px white rings, active = 24x8 black pill (source .tw-carousel-dots) */
+.carousel-banner .carousel-banner-indicators-nav {
+  padding-top: 17px; /* 25px source gap minus the 8px hit-area padding */
+}
+
+.carousel-banner .carousel-banner-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.carousel-banner .carousel-banner-indicator {
+  line-height: 0;
+}
+
+.carousel-banner .carousel-banner-indicator button {
+  display: block;
+  margin: 0;
+  padding: 8px 4px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.carousel-banner .carousel-banner-indicator button::before {
+  content: '';
+  display: block;
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgb(17 25 40);
+  border-radius: 4px;
+  background-color: rgb(255 255 255);
+  transition: width 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.carousel-banner .carousel-banner-indicator button:hover::before {
+  background-color: var(--border-color);
+}
+
+.carousel-banner .carousel-banner-indicator button[aria-current='true']::before {
+  width: 24px;
+  border-color: var(--button-color);
+  background-color: var(--button-color);
+}
+
+@media (hover: hover) {
+  .carousel-banner .carousel-banner-prev,
+  .carousel-banner .carousel-banner-next {
+    opacity: 0;
+  }
+
+  .carousel-banner:hover .carousel-banner-prev,
+  .carousel-banner:hover .carousel-banner-next,
+  .carousel-banner .carousel-banner-prev:focus-visible,
+  .carousel-banner .carousel-banner-next:focus-visible {
+    opacity: 1;
+  }
+}
+
+@media (width >= 600px) {
+  .carousel-banner .carousel-banner-desktop {
+    display: block;
+  }
+
+  .carousel-banner .carousel-banner-mobile {
+    display: none;
+  }
+
+  .carousel-banner .carousel-banner-prev,
+  .carousel-banner .carousel-banner-next {
+    display: flex;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel-banner .carousel-banner-slides {
+    border-radius: var(--radius-m);
+  }
+
+  .carousel-banner .carousel-banner-prev,
+  .carousel-banner .carousel-banner-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-banner .carousel-banner-prev {
+    left: 16px;
+  }
+
+  .carousel-banner .carousel-banner-next {
+    right: 16px;
+  }
+
+  .carousel-banner .carousel-banner-indicators-nav {
+    padding-top: 8px; /* 16px source gap */
+  }
+
+  .carousel-banner .carousel-banner-toggle {
+    top: calc(100% + 8px);
+  }
+
+  .carousel-banner .carousel-banner-indicator button {
+    padding: 8px 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-banner .carousel-banner-slides {
+    scroll-behavior: auto;
+  }
+
+  .carousel-banner .carousel-banner-prev,
+  .carousel-banner .carousel-banner-next,
+  .carousel-banner .carousel-banner-toggle,
+  .carousel-banner .carousel-banner-indicator button::before {
+    transition: none;
+  }
+}

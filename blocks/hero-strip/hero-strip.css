@@ -1,0 +1,146 @@
+/* hero-strip: full-width background-image strip with a centered line of text and a CTA.
+   Values from Titan's NeuCoins login banner (.tw-login-banner-wrapper). */
+main .section > .hero-strip-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+/* mobile (< 600px): Mobile_Login_Banner_BG 360x88, prompt stacked */
+.hero-strip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  aspect-ratio: 360 / 88;
+  padding: 8px 16px;
+  isolation: isolate;
+}
+
+.hero-strip .hero-strip-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.hero-strip .hero-strip-media picture,
+.hero-strip .hero-strip-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-strip .hero-strip-media img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-strip .hero-strip-media .hero-strip-desktop {
+  display: none;
+}
+
+.hero-strip .hero-strip-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-strip .hero-strip-content > * {
+  margin: 0;
+}
+
+.hero-strip .hero-strip-content p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #374151;
+}
+
+/* CTA: Titan .tw-btn-primary.btn-small */
+main .hero-strip .hero-strip-content p.button-wrapper {
+  margin: 0;
+  line-height: 0;
+}
+
+main .hero-strip a.button:any-link {
+  width: 129px;
+  min-height: 32px;
+  height: 32px;
+  padding: 4px 16px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-s);
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+  font-family: var(--body-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+main .hero-strip a.button:any-link:hover,
+main .hero-strip a.button:any-link:active {
+  background-color: var(--button-hover-color);
+  color: var(--button-text-color);
+  text-decoration: none;
+}
+
+main .hero-strip a.button:any-link:focus-visible {
+  background-color: var(--button-hover-color);
+  color: var(--button-text-color);
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* >= 600px: Desktop_Login_Banner_BG 1440x120, prompt on one line */
+@media (width >= 600px) {
+  .hero-strip {
+    aspect-ratio: 1440 / 120;
+    padding: 12px 16px;
+  }
+
+  .hero-strip .hero-strip-media .hero-strip-desktop {
+    display: block;
+  }
+
+  .hero-strip .hero-strip-media .hero-strip-mobile {
+    display: none;
+  }
+
+  .hero-strip .hero-strip-content {
+    flex-flow: row wrap;
+    gap: 8px 24px;
+  }
+
+  .hero-strip .hero-strip-content p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  main .hero-strip a.button:any-link {
+    width: 192px;
+    min-height: 40px;
+    height: 40px;
+    padding: 6px 16px;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero-strip .hero-strip-content {
+    gap: 8px 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main .hero-strip a.button:any-link {
+    transition: none;
+  }
+}

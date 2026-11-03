@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-bento",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Bento grid of linked tiles with one large featured tile",
+    "summary": "Image-only linked tiles: one large tile beside a 2x2 grid of small tiles",
+    "layout": "From 900px the first tile spans the left half and two rows, the next four form a 2x2 grid beside it; extra tiles continue in rows of four. On mobile the first tile is full width and the rest form 2 columns. Labels sit below the images"
+  },
+  "contentPattern": {
+    "structure": "cell 1: tile image (the first row is the featured tile); cell 2 (optional): label and/or link. One link makes the whole tile clickable",
+    "source": "5 linked movement-type image tiles in a 1-large + 4-small bento layout"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Showcasing one hero category beside four related ones (5 tiles is the intended count).",
+  "reuseGuidance": "Use when one tile should dominate. For an even grid use cards-image-tiles.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Uses image/link helpers from /scripts/block-utils.js."
+}

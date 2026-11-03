@@ -1,0 +1,20 @@
+{
+  "variantName": "carousel-circles",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Category shortcut slider with circular images and labels",
+    "summary": "Multi-item slider of circular images with text label below",
+    "layout": "Many small items per view (about 4 on mobile, 6 on tablet, 8 on desktop); circular cropped image with a text label below; side arrows"
+  },
+  "contentPattern": {
+    "structure": "cell 1: image (cropped to a circle); cell 2: label link (or label text plus a link). One link makes the whole item clickable",
+    "source": "13 circular category images + text links (Men, Women, Offer, Couple, Vetra, Mag By Titan, Smart, Bestsellers, Clocks, Kids, Premium, New Arrivals, Raga)"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Shop-by-category style navigation rows.",
+  "reuseGuidance": "Use for compact round category shortcuts. For rectangular tiles use carousel-tiles.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Shares the carousel engine in /scripts/carousel.js (prev/next, indicators, keyboard arrows, ARIA, autoplay with pause control) and helpers in /scripts/block-utils.js."
+}

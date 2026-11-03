@@ -1,0 +1,20 @@
+{
+  "variantName": "cards-icon-stack",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Trust badges: centered icon above a short uppercase label",
+    "summary": "Centered icon above uppercase label, evenly spaced row",
+    "layout": "Items evenly spaced in one row, wrapping on small screens; icon centered above the label"
+  },
+  "contentPattern": {
+    "structure": "cell 1: icon or small image; cell 2: short label; an optional link makes the whole item clickable",
+    "source": "3 icon + label items (100% Original, 7 Day Return, Free Shipping)"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Trust/assurance badges such as originality, returns and shipping.",
+  "reuseGuidance": "Use for 2-5 short badges. For icon beside a title + description use cards-icon-inline.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Uses image/link helpers from /scripts/block-utils.js."
+}

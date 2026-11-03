@@ -1,0 +1,490 @@
+/* carousel-shorts: slider of vertical video shorts; optional `coverflow` option */
+.carousel-shorts {
+  --carousel-shorts-card-width: 160px;
+  --carousel-shorts-gap: 12px;
+  --carousel-shorts-radius: 18px;
+  --carousel-shorts-ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  position: relative;
+}
+
+.carousel-shorts .carousel-shorts-viewport {
+  position: relative;
+}
+
+.carousel-shorts .carousel-shorts-slides {
+  display: flex;
+  align-items: center;
+  gap: var(--carousel-shorts-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.carousel-shorts .carousel-shorts-slides::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-shorts .carousel-shorts-slide {
+  position: relative;
+  flex: 0 0 var(--carousel-shorts-card-width);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.carousel-shorts.carousel-shorts-static .carousel-shorts-slides {
+  justify-content: center;
+}
+
+/* card: poster/video with the view count and "Shop now" laid over it */
+.carousel-shorts .carousel-shorts-item {
+  position: relative;
+}
+
+.carousel-shorts .carousel-shorts-item-media {
+  position: relative;
+  aspect-ratio: 225 / 380;
+  overflow: hidden;
+  border-radius: var(--carousel-shorts-radius);
+  background-color: #111;
+  line-height: 0;
+}
+
+.carousel-shorts .carousel-shorts-item-media picture,
+.carousel-shorts .carousel-shorts-item-media img,
+.carousel-shorts .carousel-shorts-item-media video,
+.carousel-shorts .carousel-shorts-item-media iframe,
+.carousel-shorts .carousel-shorts-poster-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.carousel-shorts .carousel-shorts-item-media img,
+.carousel-shorts .carousel-shorts-item-media video {
+  object-fit: cover;
+}
+
+.carousel-shorts .carousel-shorts-item-media img {
+  transition: transform 0.5s var(--carousel-shorts-ease);
+}
+
+.carousel-shorts .carousel-shorts-item:hover .carousel-shorts-item-media img {
+  transform: scale(1.04);
+}
+
+/* play button covers the poster; icon is a frosted disc with a white triangle */
+.carousel-shorts .carousel-shorts-play {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-shorts .carousel-shorts-play::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52px;
+  height: 52px;
+  box-sizing: border-box;
+  border: 1px solid rgb(255 255 255 / 60%);
+  border-radius: 50%;
+  background-color: rgb(0 0 0 / 44%);
+  backdrop-filter: blur(4px);
+  box-shadow: 1px 2px 6px rgb(0 0 0 / 30%);
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s var(--carousel-shorts-ease), background-color 0.25s;
+}
+
+.carousel-shorts .carousel-shorts-play::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-style: solid;
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent #fff;
+  filter: drop-shadow(1px 2px 2px rgb(0 0 0 / 60%));
+  transform: translate(-35%, -50%);
+}
+
+.carousel-shorts .carousel-shorts-play:hover::before,
+.carousel-shorts .carousel-shorts-play:focus-visible::before {
+  background-color: rgb(0 0 0 / 65%);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.carousel-shorts .carousel-shorts-play:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+  border-radius: var(--carousel-shorts-radius);
+}
+
+/* overlay layer: view count top-left, "Shop now" pill bottom-center */
+.carousel-shorts .carousel-shorts-item-body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px 4px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  pointer-events: none;
+}
+
+.carousel-shorts .carousel-shorts-item-body > * {
+  margin: 0;
+}
+
+.carousel-shorts .carousel-shorts-item-body > p:not(:has(a)) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background-color: rgb(0 0 0 / 44%);
+  text-shadow: 0 0 4px #000;
+  filter: drop-shadow(1px 2px 2px rgb(0 0 0 / 60%));
+  white-space: nowrap;
+}
+
+/* eye icon in front of the view count */
+.carousel-shorts .carousel-shorts-item-body > p:not(:has(a))::before {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 10px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12'%3E%3Cpath d='M8 0C4.364 0 1.248 2.292 0 6c1.248 3.708 4.364 6 8 6s6.752-2.292 8-6c-1.248-3.708-4.364-6-8-6zm0 10.2c-2.363 0-4.483-1.59-5.525-4.2C3.517 3.39 5.637 1.8 8 1.8s4.483 1.59 5.525 4.2c-1.042 2.61-3.162 4.2-5.525 4.2zm0-6.6A2.4 2.4 0 1 0 10.4 6 2.4 2.4 0 0 0 8 3.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.carousel-shorts .carousel-shorts-item-body > p:has(.carousel-shorts-cta) {
+  align-self: center;
+  margin-top: auto;
+  transition: transform 0.25s var(--carousel-shorts-ease);
+}
+
+.carousel-shorts .carousel-shorts-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  background-color: #343a40;
+  box-shadow: 0 3px 3px -2px rgb(0 0 0 / 20%), 0 3px 4px 0 rgb(0 0 0 / 14%), 0 1px 8px 0 rgb(0 0 0 / 12%);
+  color: #eee;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  pointer-events: auto;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* cart icon */
+.carousel-shorts .carousel-shorts-cta::before {
+  content: '';
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath d='M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.carousel-shorts .carousel-shorts-cta:hover {
+  background-color: var(--button-color);
+  color: #fff;
+}
+
+.carousel-shorts .carousel-shorts-cta:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* while a video plays: drop the view count, lift "Shop now" above the player controls */
+.carousel-shorts .carousel-shorts-item:has(.is-playing) .carousel-shorts-item-body > p:not(:has(a)) {
+  visibility: hidden;
+}
+
+.carousel-shorts .carousel-shorts-item:has(.is-playing) .carousel-shorts-item-body > p:has(.carousel-shorts-cta) {
+  transform: translateY(-44px);
+}
+
+/* arrows: black disc with a white chevron */
+.carousel-shorts .carousel-shorts-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel-shorts .carousel-shorts-controls[hidden] {
+  display: none;
+}
+
+.carousel-shorts .carousel-shorts-prev,
+.carousel-shorts .carousel-shorts-next {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--button-color);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+  color: #fff;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s, transform 0.2s var(--carousel-shorts-ease);
+}
+
+.carousel-shorts .carousel-shorts-prev {
+  left: 8px;
+}
+
+.carousel-shorts .carousel-shorts-next {
+  right: 8px;
+}
+
+.carousel-shorts .carousel-shorts-prev:hover,
+.carousel-shorts .carousel-shorts-next:hover {
+  background-color: var(--button-hover-color);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-shorts .carousel-shorts-prev:disabled,
+.carousel-shorts .carousel-shorts-next:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-shorts .carousel-shorts-prev::after,
+.carousel-shorts .carousel-shorts-next::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-left: 0;
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.carousel-shorts .carousel-shorts-next::after {
+  transform: translateX(-2px) rotate(45deg);
+}
+
+.carousel-shorts .carousel-shorts-prev:focus-visible,
+.carousel-shorts .carousel-shorts-next:focus-visible {
+  outline: 2px solid var(--button-color);
+  outline-offset: 2px;
+}
+
+/*
+ * coverflow: the centered short is full size, neighbours step back (scale 0.75 / 0.6 / 0.5)
+ * and tuck behind it with a side shade, like the source's 3D coverflow. Transforms sit on the
+ * item, never on the slide, so the carousel engine measures untransformed positions.
+ */
+.carousel-shorts.coverflow {
+  --carousel-shorts-card-width: 200px;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slides {
+  gap: 0;
+  padding-block: 20px;
+}
+
+/* edge spacers so the first and last short can reach the center */
+.carousel-shorts.coverflow .carousel-shorts-slides::before,
+.carousel-shorts.coverflow .carousel-shorts-slides::after {
+  content: '';
+  flex: 0 0 calc(50% - var(--carousel-shorts-card-width) * 0.4);
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide {
+  --carousel-shorts-x: 0%;
+  --carousel-shorts-scale: 0.5;
+  --carousel-shorts-opacity: 0;
+  --carousel-shorts-shade: none;
+
+  z-index: 0;
+  margin-inline: calc(var(--carousel-shorts-card-width) * -0.1);
+  scroll-snap-align: center;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-item {
+  opacity: var(--carousel-shorts-opacity);
+  transform: translateX(var(--carousel-shorts-x)) scale(var(--carousel-shorts-scale));
+  transition: transform 0.45s var(--carousel-shorts-ease), opacity 0.45s;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-item-media {
+  aspect-ratio: 9 / 16;
+  box-shadow: 0 0 30px rgb(0 0 0 / 60%);
+}
+
+.carousel-shorts.coverflow .carousel-shorts-item-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--carousel-shorts-shade);
+  pointer-events: none;
+}
+
+/* slides to the left of the active one (distance 3, 2, 1); shade on the edge facing the center */
+.carousel-shorts.coverflow .carousel-shorts-slide:has(~ .is-active) {
+  --carousel-shorts-shade: linear-gradient(to left, rgb(0 0 0 / 50%), rgb(0 0 0 / 0%));
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide:has(+ * + * + .is-active) {
+  --carousel-shorts-x: 100%;
+  --carousel-shorts-opacity: 1;
+
+  z-index: 1;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide:has(+ * + .is-active) {
+  --carousel-shorts-x: 40%;
+  --carousel-shorts-scale: 0.6;
+  --carousel-shorts-opacity: 1;
+
+  z-index: 2;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide:has(+ .is-active) {
+  --carousel-shorts-scale: 0.75;
+  --carousel-shorts-opacity: 1;
+
+  z-index: 3;
+}
+
+/* slides to the right of the active one */
+.carousel-shorts.coverflow .carousel-shorts-slide.is-active ~ .carousel-shorts-slide {
+  --carousel-shorts-shade: linear-gradient(to right, rgb(0 0 0 / 50%), rgb(0 0 0 / 0%));
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide.is-active + * + * + .carousel-shorts-slide {
+  --carousel-shorts-x: -100%;
+  --carousel-shorts-opacity: 1;
+
+  z-index: 1;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide.is-active + * + .carousel-shorts-slide {
+  --carousel-shorts-x: -40%;
+  --carousel-shorts-scale: 0.6;
+  --carousel-shorts-opacity: 1;
+
+  z-index: 2;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide.is-active + .carousel-shorts-slide {
+  --carousel-shorts-scale: 0.75;
+  --carousel-shorts-opacity: 1;
+
+  z-index: 3;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide.is-active {
+  --carousel-shorts-scale: 1;
+  --carousel-shorts-opacity: 1;
+  --carousel-shorts-shade: none;
+
+  z-index: 4;
+}
+
+
+/* only the centered short shows its play button and reacts to hover */
+.carousel-shorts.coverflow .carousel-shorts-slide:not(.is-active) .carousel-shorts-play::before,
+.carousel-shorts.coverflow .carousel-shorts-slide:not(.is-active) .carousel-shorts-play::after {
+  opacity: 0;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide:not(.is-active) .carousel-shorts-play:focus-visible::before,
+.carousel-shorts.coverflow .carousel-shorts-slide:not(.is-active) .carousel-shorts-play:focus-visible::after {
+  opacity: 1;
+}
+
+.carousel-shorts.coverflow .carousel-shorts-slide:not(.is-active) .carousel-shorts-item:hover .carousel-shorts-item-media img {
+  transform: none;
+}
+
+@media (width >= 600px) {
+  .carousel-shorts {
+    --carousel-shorts-card-width: 200px;
+    --carousel-shorts-gap: 16px;
+  }
+
+  .carousel-shorts.coverflow {
+    --carousel-shorts-card-width: 225px;
+  }
+
+  .carousel-shorts .carousel-shorts-item-body {
+    padding: 12px 4px 10px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .carousel-shorts .carousel-shorts-item-body > p:not(:has(a)) {
+    gap: 8px;
+    padding: 4px 10px;
+  }
+
+  .carousel-shorts .carousel-shorts-cta {
+    gap: 10px;
+    padding: 6px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel-shorts {
+    --carousel-shorts-card-width: 225px;
+    --carousel-shorts-gap: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-shorts .carousel-shorts-slides {
+    scroll-behavior: auto;
+  }
+
+  .carousel-shorts .carousel-shorts-item-media img,
+  .carousel-shorts .carousel-shorts-play::before,
+  .carousel-shorts .carousel-shorts-prev,
+  .carousel-shorts .carousel-shorts-next,
+  .carousel-shorts .carousel-shorts-item-body > p,
+  .carousel-shorts.coverflow .carousel-shorts-item {
+    transition: none;
+  }
+
+  .carousel-shorts .carousel-shorts-item:hover .carousel-shorts-item-media img {
+    transform: none;
+  }
+}

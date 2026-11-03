@@ -1,0 +1,398 @@
+/* carousel-hero: full-bleed single-slide slider, side arrows, text-label progress strip */
+
+/* full bleed: the hero runs edge to edge like the source */
+main > .section > .carousel-hero-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.carousel-hero {
+  --carousel-hero-gold: #dda243;
+  --carousel-hero-track: rgb(221 162 67 / 20%);
+  --carousel-hero-interval: 6s;
+
+  position: relative;
+  color: var(--text-color);
+}
+
+.carousel-hero .carousel-hero-viewport {
+  position: relative;
+}
+
+.carousel-hero .carousel-hero-slides,
+.carousel-hero .carousel-hero-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-hero .carousel-hero-slides {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.carousel-hero .carousel-hero-slides::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-hero .carousel-hero-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+}
+
+.carousel-hero .carousel-hero-slide-inner {
+  position: relative;
+  height: 100%;
+}
+
+.carousel-hero .carousel-hero-slide-media,
+.carousel-hero .carousel-hero-slide-link {
+  display: block;
+  line-height: 0;
+}
+
+.carousel-hero .carousel-hero-slide-link:focus-visible {
+  outline: 2px solid var(--heading-color);
+  outline-offset: -4px;
+}
+
+/* images keep their native ratio (desktop 1920x640, mobile 600x603): no crop, no shift */
+.carousel-hero .carousel-hero-slide-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+  background-color: var(--light-color);
+}
+
+/* optional second image = mobile art direction */
+.carousel-hero .carousel-hero-desktop {
+  display: none;
+}
+
+.carousel-hero .carousel-hero-mobile {
+  display: block;
+}
+
+.carousel-hero .carousel-hero-mobile img {
+  aspect-ratio: 600 / 603;
+}
+
+/* overlay text for slides authored with heading / description / CTA */
+.carousel-hero .carousel-hero-slide-content {
+  position: absolute;
+  inset: auto 16px 24px;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.carousel-hero .carousel-hero-slide-text-only .carousel-hero-slide-content {
+  position: static;
+  padding: 32px 16px;
+}
+
+.carousel-hero .carousel-hero-slide-content > :first-child {
+  margin-top: 0;
+}
+
+.carousel-hero .carousel-hero-slide-content > :last-child {
+  margin-bottom: 0;
+}
+
+/* prev / next / pause: subtle white discs over the image */
+.carousel-hero .carousel-hero-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.carousel-hero .carousel-hero-controls[hidden],
+.carousel-hero .carousel-hero-indicators-nav[hidden] {
+  display: none;
+}
+
+.carousel-hero .carousel-hero-prev,
+.carousel-hero .carousel-hero-next,
+.carousel-hero .carousel-hero-toggle {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgb(255 255 255 / 90%);
+  color: var(--heading-color);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 15%);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: opacity 0.25s ease, background-color 0.2s ease, transform 0.25s ease;
+}
+
+.carousel-hero .carousel-hero-prev,
+.carousel-hero .carousel-hero-next {
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.carousel-hero .carousel-hero-prev {
+  left: 12px;
+}
+
+.carousel-hero .carousel-hero-next {
+  right: 12px;
+}
+
+.carousel-hero .carousel-hero-toggle {
+  right: 12px;
+  bottom: 12px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.8;
+}
+
+/* revealed on hover (pointer devices) and whenever focus is inside the carousel */
+.carousel-hero:focus-within .carousel-hero-prev,
+.carousel-hero:focus-within .carousel-hero-next {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .carousel-hero:hover .carousel-hero-prev,
+  .carousel-hero:hover .carousel-hero-next {
+    opacity: 1;
+  }
+}
+
+.carousel-hero .carousel-hero-prev:hover,
+.carousel-hero .carousel-hero-next:hover,
+.carousel-hero .carousel-hero-toggle:hover {
+  background-color: #fff;
+}
+
+.carousel-hero .carousel-hero-prev:hover,
+.carousel-hero .carousel-hero-next:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.carousel-hero .carousel-hero-toggle:hover,
+.carousel-hero .carousel-hero-toggle:focus-visible {
+  opacity: 1;
+}
+
+.carousel-hero .carousel-hero-prev::after,
+.carousel-hero .carousel-hero-next::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-left: 0;
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.carousel-hero .carousel-hero-next::after {
+  transform: translateX(-2px) rotate(45deg);
+}
+
+.carousel-hero .carousel-hero-toggle::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 9px;
+  border-color: transparent transparent transparent currentcolor;
+  transform: translateX(1px);
+}
+
+.carousel-hero .carousel-hero-toggle.is-playing::after {
+  width: 3px;
+  height: 10px;
+  border-width: 0 3px;
+  border-color: currentcolor;
+  transform: none;
+}
+
+
+/* text-label indicator strip with gold progress tracks */
+.carousel-hero .carousel-hero-indicators {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+  padding: 12px 16px 6px;
+  mask-image: linear-gradient(to right, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+}
+
+.carousel-hero .carousel-hero-indicators::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-hero .carousel-hero-indicator {
+  flex: 0 0 auto;
+}
+
+.carousel-hero .carousel-hero-indicator button {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0 16px 14px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--muted-text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  line-height: 24px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.carousel-hero .carousel-hero-indicator button:hover,
+.carousel-hero .carousel-hero-indicator button[aria-current='true'] {
+  color: var(--text-color);
+}
+
+/* track */
+.carousel-hero .carousel-hero-indicator button::before,
+.carousel-hero .carousel-hero-indicator button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  border-radius: 4px;
+}
+
+.carousel-hero .carousel-hero-indicator button::before {
+  right: 0;
+  background-color: var(--carousel-hero-track);
+  transition: background-color 0.2s ease;
+}
+
+.carousel-hero .carousel-hero-indicator button:hover::before {
+  background-color: rgb(221 162 67 / 40%);
+}
+
+/* fill: full on the active label, grows over the autoplay interval while playing */
+.carousel-hero .carousel-hero-indicator button::after {
+  width: 0;
+  bottom: 1px;
+  height: 3px;
+  border-radius: 100px;
+  background-color: var(--carousel-hero-gold);
+}
+
+.carousel-hero .carousel-hero-indicator button[aria-current='true']::after {
+  width: 100%;
+}
+
+.carousel-hero:has(.carousel-hero-toggle.is-playing) .carousel-hero-indicator button[aria-current='true']::after {
+  animation: carousel-hero-progress var(--carousel-hero-interval) linear both;
+}
+
+@keyframes carousel-hero-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.carousel-hero :is(.carousel-hero-indicator, .carousel-hero-controls) button:focus-visible {
+  outline: 2px solid var(--heading-color);
+  outline-offset: 2px;
+}
+
+.carousel-hero .carousel-hero-controls button:focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 4px var(--heading-color);
+}
+
+@media (width >= 600px) {
+  .carousel-hero .carousel-hero-desktop {
+    display: block;
+  }
+
+  .carousel-hero .carousel-hero-mobile {
+    display: none;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel-hero .carousel-hero-slide-content {
+    inset: auto auto 48px 64px;
+  }
+
+  .carousel-hero .carousel-hero-prev,
+  .carousel-hero .carousel-hero-next {
+    width: 50px;
+    height: 50px;
+  }
+
+  .carousel-hero .carousel-hero-prev::after,
+  .carousel-hero .carousel-hero-next::after {
+    width: 11px;
+    height: 11px;
+  }
+
+  .carousel-hero .carousel-hero-prev {
+    left: 35px;
+  }
+
+  .carousel-hero .carousel-hero-next {
+    right: 35px;
+  }
+
+  .carousel-hero .carousel-hero-toggle {
+    right: 35px;
+    bottom: 24px;
+  }
+
+  .carousel-hero .carousel-hero-indicators {
+    justify-content: safe center;
+    padding: 16px 32px 8px;
+    mask-image: none;
+  }
+
+  .carousel-hero .carousel-hero-indicator button {
+    padding: 0 30px 14px;
+    color: var(--text-color);
+    font-size: var(--body-font-size-m);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-hero .carousel-hero-slides,
+  .carousel-hero .carousel-hero-indicators {
+    scroll-behavior: auto;
+  }
+
+  .carousel-hero .carousel-hero-prev,
+  .carousel-hero .carousel-hero-next,
+  .carousel-hero .carousel-hero-toggle,
+  .carousel-hero .carousel-hero-indicator button,
+  .carousel-hero .carousel-hero-indicator button::before {
+    transition: none;
+  }
+
+  .carousel-hero:has(.carousel-hero-toggle.is-playing) .carousel-hero-indicator button[aria-current='true']::after {
+    animation: none;
+  }
+}

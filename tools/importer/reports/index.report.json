@@ -1,0 +1,26 @@
+{
+  "status": "success",
+  "url": "https://www.titan.co.in/",
+  "path": "index",
+  "timestamp": "2026-11-03T04:14:28.025Z",
+  "title": "Titan: The Official Website for Titan Watches, Wallets, Belts, Wall Clocks, Watch Straps & Gift Cards.",
+  "template": "home",
+  "blocks": [
+    "carousel-hero",
+    "cards-icon-inline",
+    "carousel-banner",
+    "cards-image-tiles",
+    "cards-image-tiles",
+    "cards-image-tiles",
+    "carousel-tiles",
+    "carousel-tiles",
+    "carousel-tiles",
+    "carousel-circles",
+    "carousel-shorts",
+    "carousel-shorts",
+    "carousel-reviews",
+    "cards-bento",
+    "cards-icon-stack",
+    "hero-strip"
+  ]
+}

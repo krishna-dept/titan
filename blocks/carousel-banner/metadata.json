@@ -1,0 +1,20 @@
+{
+  "variantName": "carousel-banner",
+  "baseBlock": "carousel",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Container-width promotional banner slider",
+    "summary": "Container-width image-only promo slider with dot indicators",
+    "layout": "One image per view at container width, dot indicators below, arrows on hover/focus, autoplays (5s) with a pause button"
+  },
+  "contentPattern": {
+    "structure": "cell 1: banner image (optional second image = mobile image); cell 2 (optional): link to the promotion (bare URL or labelled link; the whole banner links). Any other text is shown as a caption",
+    "source": "4 image-only linked slides (Mag by Titan, Edge Titanium, Wedding, Nebula x Tarun Tahiliani)"
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Rotating image-only promo banners inside the page content width.",
+  "reuseGuidance": "Use for image-only promos. For a full-bleed hero with labelled indicators use carousel-hero.",
+  "sourceUrl": "https://www.titan.co.in/",
+  "implementationNotes": "Shares the carousel engine in /scripts/carousel.js (prev/next, indicators, keyboard arrows, ARIA, autoplay with pause control) and helpers in /scripts/block-utils.js."
+}

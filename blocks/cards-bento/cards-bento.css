@@ -1,0 +1,134 @@
+/* cards-bento: one large feature tile beside a 2x2 grid of small tiles.
+   Source (titan.co.in .tw-trending-banners__grid) measurements:
+   - mobile: 2 columns, 10px gap; feature tile spans both columns; every image is 1.1:1
+     (390px viewport: 358x325 feature, 174x158 small tiles).
+   - desktop: 16px gap; feature tile spans the left half and both rows, the four small
+     1.1:1 tiles sit 2x2 beside it (1440px: 680x620 feature, 332x302 small tiles).
+   - square corners, no shadows; labels are part of the artwork. */
+.cards-bento {
+  --cards-bento-ratio: 1.1 / 1;
+  --cards-bento-gap: 10px;
+}
+
+.cards-bento > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cards-bento-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-bento .cards-bento-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cards-bento .cards-bento-card-feature {
+  grid-column: 1 / -1;
+}
+
+.cards-bento .cards-bento-card-link {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  color: var(--heading-color);
+  text-decoration: none;
+  outline: none;
+}
+
+/* the media box owns the ratio, so the lazy image never shifts the layout and the
+   feature tile can stretch to the height of the two small rows beside it */
+.cards-bento .cards-bento-card-media {
+  position: relative;
+  flex: 1 1 auto;
+  aspect-ratio: var(--cards-bento-ratio);
+  overflow: hidden;
+  background-color: var(--light-color);
+  line-height: 0;
+}
+
+.cards-bento .cards-bento-card-media > p {
+  margin: 0;
+}
+
+.cards-bento .cards-bento-card-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* the imported artwork is ~1.06:1 with its label baked in near the bottom edge;
+     crop the spare space above the watch instead of the label's margin */
+  object-position: 50% 100%;
+  transition: transform 0.45s ease;
+}
+
+/* optional authored label below the image */
+.cards-bento .cards-bento-card-body {
+  padding-top: 8px;
+  font-size: var(--body-font-size-s);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cards-bento .cards-bento-card-body > * {
+  margin: 0;
+}
+
+/* focus ring drawn above the image so the clipped media box never hides it */
+.cards-bento .cards-bento-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cards-bento .cards-bento-card-link:focus-visible::after {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 4px var(--background-color);
+}
+
+@media (hover: hover) {
+  .cards-bento .cards-bento-card-link:hover img {
+    transform: scale(1.04);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-bento {
+    --cards-bento-gap: 16px;
+  }
+
+  .cards-bento > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* feature tile spans the left half, two rows tall */
+  .cards-bento .cards-bento-card-feature {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* a lone feature tile shouldn't leave a half-empty grid */
+  .cards-bento.cards-bento-count-1 .cards-bento-card-feature {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-bento .cards-bento-card-media img {
+    transition: none;
+  }
+
+  .cards-bento .cards-bento-card-link:hover img {
+    transform: none;
+  }
+}
